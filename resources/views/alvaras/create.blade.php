@@ -19,13 +19,13 @@
         <label>Número</label>
         <input type="text" name="numero" class="form-control" required>
     </div>
-    <div class="mb-3">
+    <div class="mb-3">  
         <label>Data Emissão</label>
-        <input type="date" name="data_emissao" class="form-control" required>
+        <input type="text" name="data_emissao" class="form-control" placeholder="dd/mm/aaaa" required>
     </div>
     <div class="mb-3">
         <label>Data Validade</label>
-        <input type="date" name="data_validade" class="form-control" required>
+        <input type="text" name="data_validade" class="form-control" placeholder="dd/mm/aaaa" required>
     </div>
     <div class="mb-3">
         <label>Status</label>

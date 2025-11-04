@@ -8,22 +8,21 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('alvaras_historico', function (Blueprint $table) {
+        Schema::create('alvara_historicos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('alvara_id')->constrained('alvaras')->onDelete('cascade');
-            $table->foreignId('empresa_id')->constrained('empresas')->onDelete('cascade');
+            $table->unsignedBigInteger('alvara_id'); // <-- adicionado
+            $table->unsignedBigInteger('empresa_id');
             $table->string('numero');
             $table->date('data_emissao');
             $table->date('data_validade');
-            $table->string('status');
+            $table->string('status')->nullable();
             $table->text('observacao')->nullable();
-            $table->foreignId('alterado_por')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('alvaras_historico');
+        Schema::dropIfExists('alvara_historicos');
     }
 };

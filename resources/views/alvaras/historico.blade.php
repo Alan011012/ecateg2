@@ -12,7 +12,7 @@
             <th>ID</th>
             <th>Número</th>
             <th>Empresa</th>
-            <th>Data Emissão</th>
+            <th>Data Emissão</th> 
             <th>Data Validade</th>
             <th>Status</th>
             <th>Observação</th>

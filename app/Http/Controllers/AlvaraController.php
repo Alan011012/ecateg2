@@ -23,8 +23,33 @@ class AlvaraController extends Controller
 
     public function store(Request $request)
     {
-        Alvara::create($request->all());
-        return redirect()->route('alvaras.index');
+        $request->validate([
+            'empresa_id' => 'required|exists:empresas,id',
+            'numero' => 'required',
+            'data_emissao' => 'required|date_format:d/m/Y',
+            'data_validade' => 'required|date_format:d/m/Y|after:data_emissao',
+            'status' => 'required',
+        ]);
+
+        $alvaraExistente = Alvara::where('empresa_id', $request->empresa_id)->first();
+
+        if ($alvaraExistente) {
+            AlvaraHistorico::create([
+                'alvara_id' => $alvaraExistente->id,
+                'empresa_id' => $alvaraExistente->empresa_id,
+                'numero' => $alvaraExistente->numero,
+                'data_emissao' => $alvaraExistente->data_emissao,
+                'data_validade' => $alvaraExistente->data_validade,
+                'status' => $alvaraExistente->status,
+                'observacao' => $alvaraExistente->observacao,
+            ]);
+
+            $alvaraExistente->update($request->all());
+        } else {
+            Alvara::create($request->all());
+        }
+
+        return redirect()->route('alvaras.index')->with('success', 'Alvará criado com sucesso!');
     }
 
     public function edit(Alvara $alvara)
@@ -35,6 +60,14 @@ class AlvaraController extends Controller
 
     public function update(Request $request, Alvara $alvara)
     {
+        $request->validate([
+            'empresa_id' => 'required|exists:empresas,id',
+            'numero' => 'required',
+            'data_emissao' => 'required|date_format:d/m/Y',
+            'data_validade' => 'required|date_format:d/m/Y|after:data_emissao',
+            'status' => 'required',
+        ]);
+
         AlvaraHistorico::create([
             'alvara_id' => $alvara->id,
             'empresa_id' => $alvara->empresa_id,

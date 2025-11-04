@@ -22,11 +22,11 @@
     </div>
     <div class="mb-3">
         <label>Data Emissão</label>
-        <input type="date" name="data_emissao" class="form-control" value="{{ $alvara->data_emissao }}" required>
+        <input type="text" name="data_emissao" class="form-control" value="{{ $alvara->data_emissao }}" placeholder="dd/mm/aaaa" required>
     </div>
     <div class="mb-3">
         <label>Data Validade</label>
-        <input type="date" name="data_validade" class="form-control" value="{{ $alvara->data_validade }}" required>
+        <input type="text" name="data_validade" class="form-control" value="{{ $alvara->data_validade }}" placeholder="dd/mm/aaaa" required>
     </div>
     <div class="mb-3">
         <label>Status</label>
