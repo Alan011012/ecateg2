@@ -6,13 +6,22 @@ use Illuminate\Http\Request;
 use App\Models\Alvara;
 use App\Models\AlvaraHistorico;
 use App\Models\Empresa;
+use Carbon\Carbon;
 
 class AlvaraController extends Controller
 {
     public function index()
     {
-        $alvaras = Alvara::with('empresa')->get();
-        return view('alvaras.index', compact('alvaras'));
+        // lista principal ordenada pelos que vencem primeiro
+        $alvaras = Alvara::with('empresa')->orderBy('data_validade', 'asc')->get();
+
+        // alvarás que vencem nos próximos 7 dias (inclui hoje). Usado para notificação destacada
+        $soon = Alvara::with('empresa')
+            ->whereDate('data_validade', '<=', Carbon::today()->addDays(7))
+            ->orderBy('data_validade', 'asc')
+            ->get();
+
+        return view('alvaras.index', compact('alvaras', 'soon'));
     }
 
     public function create()
